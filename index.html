@@ -2,7 +2,7 @@
 <html lang="da">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-71xDQGIZf7kf46Z5x5DM1GCjDvZ5lSX47uO9VTxI6mU=' 'sha256-U+qMQiTsrAItdgeU2Sq1+JqmxgA/uvzhk15NoQBwvYY='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-urjBhL9XLTOmZ1mpgn36xHDUJEioYcrnRkmWc4S0t9Y=' 'sha256-U+qMQiTsrAItdgeU2Sq1+JqmxgA/uvzhk15NoQBwvYY='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#15120f" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f3efe7" media="(prefers-color-scheme: light)">
@@ -619,7 +619,7 @@ dd{margin:0;min-width:0;overflow-wrap:anywhere}
 @media (min-width:600px){ h1{font-size:2.375rem} .hero{grid-template-columns:120px minmax(0,1fr)} .hero .ph{width:120px;height:120px} }
 </style>
 
-<style id='demo-patch'>#anaGet,#pdfGet,#pdfMsg,#anaMsg,#anaWho,#sgSend,#sgMsg,#sgFallback,#sp-quiz,[data-pane='quiz']{display:none!important}</style></head>
+<style id='demo-patch'>#pdfGet,#pdfMsg,#sgSend,#sgMsg,#sgFallback,#sp-quiz,[data-pane='quiz']{display:none!important}</style></head>
 <body>
 <div class="wrap" id="app">
   <div class="bar">
@@ -782,13 +782,13 @@ dd{margin:0;min-width:0;overflow-wrap:anywhere}
            foraeldrelinjen opad". Panelteksten er prosa og slutter MED punktum,
            modsat versionsnoterne. En enkelt lys indledning oeverst, resten
            daempet .pfnote - appens konvention, tjekket i "om"-panelet. -->
-      <p class="pfnote" style="color:var(--fg)">Her kan du downloade din egen anetavle, der følger forældrenes vej bagud, eller hele familien på én plakat. Begge som PDF.</p>
+      <p class="pfnote" style="color:var(--fg)">Her kan du downloade din egen anetavle som PDF. Den følger forældrenes vej bagud, så langt træet rækker.</p>
       <div class="grp" style="margin-top:4px">
         <h2>din egen anetavle</h2>
         <p class="pfnote">Anetavlen følger dine forældres vej bagud, deres forældre og så videre, så langt træet rækker. Forældrenes søskende, ægtefæller og børn er med i hvert led, hver med sit foto, hvor der findes et, ellers tegningen fra appen. Dine søskende står ved siden af dig, dine børn nedenunder. Alle andre sidegrene er væk — derfor fylder den langt mindre end familieplakaten.</p>
         <div class="form"><label>hvis anetavle?<select id="anaWho"></select></label></div>
         <p class="pfnote" id="anaNote"></p>
-        <button class="primarybtn" type="button" id="anaGet">hent din anetavle</button><button class="primarybtn" type="button" disabled>ikke tilgængelig i demoen</button>
+        <button class="primarybtn" type="button" id="anaGet">hent din anetavle</button>
         <p class="pfnote" id="anaMsg" role="status"></p>
       </div>
       <div class="grp" style="margin-top:26px">
@@ -1371,9 +1371,10 @@ function renderRail(g){
   m.hidden=false; m.textContent=(g>0?'+':'')+g; m.style.background='var(--c-'+cat(CUR)+')';
   m.style.top=(t.offsetTop-10)+'px';
 }
-var APP_VERSION='2.0';
+var APP_VERSION='2.1';
 var ADMIN='Erik Dahl';
 var CHANGELOG=(function(){ var L=[
+  {v:'2.1',_o:1,_hm:[15,20],items:['Du kan nu hente din egen anetavle som PDF under indstillinger. Den følger dine forældres vej bagud, så langt træet rækker, og tager søskende, ægtefæller og børn med i hvert led. Hæng den op, eller lad den ligge i mappen Overførsler sammen med alt det andet']},
   {v:'2.0',_o:2,_hm:[10,2],items:['Pauseskærmen er kommet til. Læg telefonen på bordet, så glider slægten forbi helt af sig selv. Ingen af dem har travlt længere']},
   {v:'1.4',_o:6,_hm:[19,10],items:['Nu kan du se, hvordan du er i familie med hvem som helst i træet. Led for led, hele vejen. Nogle af vejene er længere, end man skulle tro']},
   {v:'1.3',_o:10,_hm:[14,25],items:['Jeg husker nu, hvem du er, så du slipper for at vælge dig selv hver gang. Det er mere, end jeg kan sige om visse familiemedlemmer']},
