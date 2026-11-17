@@ -2,13 +2,13 @@
 <html lang="da">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-urjBhL9XLTOmZ1mpgn36xHDUJEioYcrnRkmWc4S0t9Y=' 'sha256-U+qMQiTsrAItdgeU2Sq1+JqmxgA/uvzhk15NoQBwvYY='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-+w6AhN7lnOxAwnAK6NlgMyzAt++pSWmTEtZUHrJRQ1w=' 'sha256-U+qMQiTsrAItdgeU2Sq1+JqmxgA/uvzhk15NoQBwvYY='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#15120f" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f3efe7" media="(prefers-color-scheme: light)">
 <meta name="robots" content="noindex,nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Slægten">
+<meta name="apple-mobile-web-app-title" content="Slægten (demo)">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
@@ -642,7 +642,7 @@ dd{margin:0;min-width:0;overflow-wrap:anywhere}
   <section id="lock" hidden>
     <form id="pwForm" style="display:flex;flex-direction:column;gap:14px" autocomplete="off">
       <div class="pano" aria-hidden="true"><span class="cap">kun for familien</span><span class="nm">adgangskode</span></div>
-      <p class="intro">Træet indeholder oplysninger om levende familiemedlemmer, så det er låst. Skriv familiens adgangskode. Telefonen husker den bagefter.</p>
+      <p class="intro">Det her er en demo af Slægten. Familien er opdigtet, og adgangskoden står herunder. Skriv den, så er du inde.</p>
       <p class="status" id="lockNews" style="color:var(--t-far)"><b style="font-weight:600">Demo:</b> Adgangskoden er <b style="font-weight:600">demo</b>. Familien er opdigtet.</p>
       <p class="status" id="lockVer"></p>
       <p class="status keeper small" id="lockAdmin"></p>
@@ -1807,7 +1807,7 @@ function qVerdict(ok,n){
   return 'Det var en hård omgang. Slægten er stor, og der er mange at holde styr på.';
 }
 
-var QFORM='https://docs.google.com/forms/d/e/1FAIpQLSfDDwQA0u8NgXgMP-C5pLwdgcg2C6ZYyNjuJRe-y83J-tNrnQ/formResponse';
+var QFORM='';
 function qShare(){
   if(QSENT) return;
   var nm=(P[POV]&&P[POV].n)||''; if(!nm) return;
@@ -1832,7 +1832,7 @@ function qShare(){
 /* ---------- Resultatloggen ----------
    Læser det udgivne regneark. Kun rækker, Bo har sat hak ved, kommer med — appen
    ser aldrig et resultat, han ikke har set først. Loggen vises først ved tre. */
-var QFEED='https://docs.google.com/spreadsheets/d/e/2PACX-1vSi1PP3T7TjoZAj3hzYV6vR2h-Cqt65DMcQY199MyC6ae6HMek9hujsVOp011Ftl8JM4I7wxsmNZqhG/pub?gid=2120198943&single=true&output=csv';
+var QFEED='';
 var QROWS=null, QFBUSY=false;
 var QMON=['jan.','feb.','mar.','apr.','maj','jun.','jul.','aug.','sep.','okt.','nov.','dec.'];
 
@@ -1980,7 +1980,7 @@ function qShowToast(r){
 }
 
 /* Kaldes fra apply() i den anden lukning, når træet står på skærmen */
-window.__quizBoot=function(){
+window.__quizBootDisabledInDemo=function(){
   if(!store(QPLAYED)) return;
   if(QROWS){ qToast(); return; }
   if(QFBUSY) return;
