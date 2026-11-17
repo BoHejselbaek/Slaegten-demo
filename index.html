@@ -2,7 +2,7 @@
 <html lang="da">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-TfGfcefARPDROo1s+h+QZdiGvWds67DMDqKkuXmIHIU=' 'sha256-U+qMQiTsrAItdgeU2Sq1+JqmxgA/uvzhk15NoQBwvYY='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self' https://docs.google.com https://*.googleusercontent.com; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-71xDQGIZf7kf46Z5x5DM1GCjDvZ5lSX47uO9VTxI6mU=' 'sha256-U+qMQiTsrAItdgeU2Sq1+JqmxgA/uvzhk15NoQBwvYY='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#15120f" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f3efe7" media="(prefers-color-scheme: light)">
@@ -749,12 +749,12 @@ dd{margin:0;min-width:0;overflow-wrap:anywhere}
         <button class="primarybtn" type="button" id="logoutBtn">log ud</button>
       </div>
       <div class="grp priv" id="privSect"><h2>dine data</h2>
-        <p class="pfnote">Alt i træet er låst med familiens adgangskode. Navne, datoer og billeder ligger krypteret, også der, hvor appen bor på nettet, så ingen udenforstående kan læse dem. Adgangskoden bliver på din telefon og sendes ingen steder hen. Appen bruger ingen cookies, ingen statistik og ingen reklamer. Deler du dit resultat fra quizzen, sendes kun dit navn og dine point til et regneark hos Google. Intet fra træet forlader appen. Børn vises kun som tegning, og om dit eget billede skal med, bestemmer du selv.</p>
+        <p class="pfnote">Alt i træet er låst med familiens adgangskode. Navne, datoer og billeder ligger krypteret, også der, hvor appen bor på nettet, så ingen udenforstående kan læse dem. Adgangskoden bliver på din telefon og sendes ingen steder hen. Appen bruger ingen cookies, ingen statistik og ingen reklamer. Intet fra træet forlader appen. Børn vises kun som tegning, og om dit eget billede skal med, bestemmer du selv.</p>
         <p class="pfnote">Telefonen husker nøglen, så træet er aldrig mere låst end selve telefonen. Har du ladet telefonen gemme adgangskoden, udfylder den den også selv igen efter log ud. Det er telefonens skærmlås, der passer på træet.</p>
         <details><summary>for de nysgerrige</summary>
           <ul>
             <li>AES-256-GCM-kryptering. Nøglen regnes ud på telefonen med PBKDF2-SHA256, 250.000 runder.</li>
-            <li>En Content Security Policy sørger for, at kun appens egen kode kører, og at appen kun taler med sig selv — og med det regneark, quizzens resultater ligger i.</li>
+            <li>En Content Security Policy sørger for, at kun appens egen kode kører, og at appen kun taler med sig selv.</li>
             <li>Skrifttyperne ligger i appen, ikke hos f.eks. Google.</li>
             <li>En låst kopi af træet gemmes på telefonen, så appen også virker uden net.</li>
           </ul>
@@ -956,7 +956,7 @@ function showLock(o){
   P={}; VER=null; PHOTOS={}; PHVER=null; PHLIST=null; PHWANT=null; STACK=[];
   ['#homeBtn','#backBtn','#keepBtn','#newsBtn','#settingsBtn','#playBtn','#povLbl','#settings','#news','#pauseBar'].forEach(function(s){ var el=$(s); if(el) el.hidden=true; });
   $('#rail').innerHTML=''; RAILKEY=null;
-  PENDING=o; $('#lockVer').textContent= fmtVer(o.version)? 'Træet er sidst opdateret '+fmtVer(o.version)+'.' : ''; brandShow(false); $('#pick').hidden=true; $('#focus').hidden=true;
+  PENDING=o; $('#lockVer').textContent= 'Træet er sidst opdateret '+fmtVer(__DEMOTOP)+'.'; brandShow(false); $('#pick').hidden=true; $('#focus').hidden=true;
   setTimeout(function(){ try{ $('#pw').focus(); }catch(e){} },50);
 }
 /* Oplåsningen er den rigtige plads til åbningsbilledet: nøglen regnes ud med 250.000 PBKDF2-runder,
@@ -1005,7 +1005,16 @@ function lockDevice(){
 /* NB: parameteren hed før "quiet" og skyggede for funktionen quiet() længere nede. Så snart træet
    blev opdateret i baggrunden, kaldte "quiet()" i stedet en true/false-værdi, og hele opdateringen
    faldt lydløst på gulvet: ingen ny tegning, ingen nye billeder. Derfor hedder den nu "first" */
-function apply(j,first){
+
+/* demo: datoer regnes ud fra i dag, så demoen aldrig ser forladt ud */
+function __demoDate(o,hm){ var d=new Date(); d.setDate(d.getDate()-o); d.setHours(hm[0],hm[1],0,0); return d; }
+var __DEMOTOP=__demoDate(0,[9,12]).toISOString(), RAWVER=null;
+function __demoDates(j){
+  if(j.changes) j.changes.forEach(function(c){ if(c.o!=null){ var d=__demoDate(c.o,c.hm||[9,0]); c.t=d.toISOString(); c.d=c.t.slice(0,10); } });
+  if(j.changes&&j.changes.length){ __DEMOTOP=j.changes[0].t; j.version=__DEMOTOP; }
+  return j;
+}
+function apply(j,first){ RAWVER=j.version; j=__demoDates(j);
   var changed=VER!==null; VER=j.version; PIN=j.pin||null; ingest(j);
   if(POV&&!P[POV]) POV=null; if(CUR&&CUR!=='__pick'&&!P[CUR]) CUR=POV;
   STACK=STACK.filter(function(x){return P[x]});
@@ -1034,7 +1043,7 @@ function loadPhotos(){
 function load(first){
   return fetch('tree.enc.json',{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(o){
     LAST=new Date(); TRIES=0;
-    if(o.version===VER){ stamp(); loadPhotos(); return; }
+    if(o.version===RAWVER){ stamp(); loadPhotos(); return; }
     return dec(o).then(function(j){
       apply(j,first); try{ localStorage.setItem('slaegt.tree.enc',JSON.stringify(o)); }catch(e){}
       loadPhotos();
@@ -1364,14 +1373,17 @@ function renderRail(g){
 }
 var APP_VERSION='2.0';
 var ADMIN='Erik Dahl';
-var CHANGELOG=[
-  {v:'2.0',d:'2026-10-25',t:'2026-10-25T10:02:00Z',items:['Pauseskærmen er kommet til. Læg telefonen på bordet, så glider slægten forbi helt af sig selv. Ingen af dem har travlt længere']},
-  {v:'1.4',d:'2026-10-23',t:'2026-10-23T19:10:00Z',items:['Nu kan du se, hvordan du er i familie med hvem som helst i træet. Led for led, hele vejen. Nogle af vejene er længere, end man skulle tro']},
-  {v:'1.3',d:'2026-10-21',t:'2026-10-21T14:25:00Z',items:['Jeg husker nu, hvem du er, så du slipper for at vælge dig selv hver gang. Det er mere, end jeg kan sige om visse familiemedlemmer']},
-  {v:'1.2',d:'2026-10-19',t:'2026-10-19T09:40:00Z',items:['Alle har fået et ansigt. De er tegnede, for fotografierne ligger i skoæsker hos folk, der ikke svarer på beskeder']},
-  {v:'1.1',d:'2026-10-17',t:'2026-10-17T18:00:00Z',items:['Mørk og lys baggrund kan nu vælges under indstillinger. Jeg foretrækker den mørke. Det gør de fleste herinde']},
-  {v:'1.0',d:'2026-10-15',t:'2026-10-15T12:00:00Z',items:['Første udgave. Slægten bor nu i lommen i stedet for i en mappe på loftet']},
+var CHANGELOG=(function(){ var L=[
+  {v:'2.0',_o:2,_hm:[10,2],items:['Pauseskærmen er kommet til. Læg telefonen på bordet, så glider slægten forbi helt af sig selv. Ingen af dem har travlt længere']},
+  {v:'1.4',_o:6,_hm:[19,10],items:['Nu kan du se, hvordan du er i familie med hvem som helst i træet. Led for led, hele vejen. Nogle af vejene er længere, end man skulle tro']},
+  {v:'1.3',_o:10,_hm:[14,25],items:['Jeg husker nu, hvem du er, så du slipper for at vælge dig selv hver gang. Det er mere, end jeg kan sige om visse familiemedlemmer']},
+  {v:'1.2',_o:14,_hm:[9,40],items:['Alle har fået et ansigt. De er tegnede, for fotografierne ligger i skoæsker hos folk, der ikke svarer på beskeder']},
+  {v:'1.1',_o:19,_hm:[18,0],items:['Mørk og lys baggrund kan nu vælges under indstillinger. Jeg foretrækker den mørke. Det gør de fleste herinde']},
+  {v:'1.0',_o:26,_hm:[12,0],items:['Første udgave. Slægten bor nu i lommen i stedet for i en mappe på loftet']},
 ];
+  return L.map(function(c){ var d=__demoDate(c._o,c._hm);
+    return {v:c.v, d:d.toISOString().slice(0,10), t:d.toISOString(), items:c.items}; });
+})();
 var NOTIFY=store('slaegt.notify')!=='0', CHANGES=[];
 var DIR='fwd', FLY=null, RAILKEY=null, PFOCUS=store('slaegt.pfocus')==='1';
 var REDUCED=matchMedia('(prefers-reduced-motion: reduce)');
