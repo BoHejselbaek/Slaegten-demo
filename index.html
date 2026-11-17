@@ -2,7 +2,7 @@
 <html lang="da">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-lb+vnK7oH0qZCd0/SNYg5saVPqwJ4FiXIz+u5zThucc=' 'sha256-U+qMQiTsrAItdgeU2Sq1+JqmxgA/uvzhk15NoQBwvYY='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self' https://docs.google.com https://*.googleusercontent.com; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-TfGfcefARPDROo1s+h+QZdiGvWds67DMDqKkuXmIHIU=' 'sha256-U+qMQiTsrAItdgeU2Sq1+JqmxgA/uvzhk15NoQBwvYY='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self' https://docs.google.com https://*.googleusercontent.com; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#15120f" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f3efe7" media="(prefers-color-scheme: light)">
@@ -619,7 +619,7 @@ dd{margin:0;min-width:0;overflow-wrap:anywhere}
 @media (min-width:600px){ h1{font-size:2.375rem} .hero{grid-template-columns:120px minmax(0,1fr)} .hero .ph{width:120px;height:120px} }
 </style>
 
-<style id='demo-patch'>#anaGet,#pdfGet,#pdfMsg,#anaMsg,#anaWho,#sp-quiz,[data-pane='quiz']{display:none!important}</style></head>
+<style id='demo-patch'>#anaGet,#pdfGet,#pdfMsg,#anaMsg,#anaWho,#sgSend,#sgMsg,#sgFallback,#sp-quiz,[data-pane='quiz']{display:none!important}</style></head>
 <body>
 <div class="wrap" id="app">
   <div class="bar">
@@ -837,7 +837,7 @@ dd{margin:0;min-width:0;overflow-wrap:anywhere}
         <label>Kilde eller bemærkning
           <textarea id="sgNote" placeholder="Fx: står i kirkebogen, eller fortalt af min moster"></textarea>
         </label>
-        <button class="primarybtn" type="submit" id="sgSend">del forslaget</button>
+        <button class="primarybtn" type="button" id="sgSend">del forslaget</button><button class="primarybtn" type="button" disabled>ikke tilgængelig i demoen</button>
         <p class="pfnote" id="sgMsg" role="status"></p>
       </form>
       <div class="grp" id="sgFallback" hidden>
@@ -1362,45 +1362,15 @@ function renderRail(g){
   m.hidden=false; m.textContent=(g>0?'+':'')+g; m.style.background='var(--c-'+cat(CUR)+')';
   m.style.top=(t.offsetTop-10)+'px';
 }
-var APP_VERSION='2.16';
-var ADMIN='Bo Hejselbæk';
+var APP_VERSION='2.0';
+var ADMIN='Erik Dahl';
 var CHANGELOG=[
-  {v:'2.16',d:'2026-11-17',t:'2026-11-17T08:53:12Z',items:['Små justeringer i brugerfladen. Svært at se for jer andre, det er bare mig, der er pedantisk. Slut herfra']},
-    {v:'2.15',d:'2026-11-17',t:'2026-11-17T07:31:00Z',items:['Så er der kommet Quiz i appen — ti hurtige spørgsmål om slægten til de mørke vinteraftener. Du finder den under indstillinger øverst til højre. Desuden vises flere facts i pauseskærmen, de fleste er stadigvæk lidt ligegyldige. Der er ryddet lidt op i brugerfladen. Småting, for det hele ser allerede så godt ud']},
-    {v:'2.14',d:'2026-11-16',t:'2026-11-16T06:15:00Z',items:['Du kan hente din egen anetavle som PDF under indstillinger. Den følger dine forældres vej bagud, deres forældre og så videre, så langt træet rækker. Søskende, ægtefæller og børn er nu med i hvert led, hver med sit eget ansigt: et fotografi, hvor der findes et, ellers tegningen fra appen. Tegningerne er der stadig flest af. Tavlen afslører også en del tomme pladser. Dem kan jeg ikke fylde ud selv. Træet vokser, når nogen ringer til en moster og spørger. Jeg tager imod alle gode forslag under indstillinger. Velkommen til den sociale del']},
-  {v:'2.13',d:'2026-11-12',t:'2026-11-12T12:21:58Z',items:['Pauseskærmen er optimeret og viser endnu mere information. Noget er ligegyldigt. Husk at slå pauseskærmen til under indstillinger. Under indstillinger finder du flere fancy ting, også den store slægtsplakat til at hænge over sofaen']},
-  {v:'2.12',d:'2026-11-12',t:'2026-11-12T11:49:03Z',items:['Tryk på billedet af en person, og det folder sig ud og fylder skærmen. Kvaliteten er, som den er med gamle familiefotos. Er der flere billeder af hende eller ham, ligger de klar ved siden af — bare bladr videre med fingeren, eller træk med musen. Har du flere billeder af nogen i familien, så send dem endelig til Bo. Jeg har god plads. Så tilføjes de, når der er plads i kalenderen']},
-  {v:'2.11',d:'2026-11-09',t:'2026-11-09T15:12:00Z',items:['Jeg har ryddet op i ‘hvem er du?’ startsiden. Billederne er flyttet ned til navnene, hvor de hørte hjemme. Du kan stadig søge efter navne i slægten, men nu kan du også trykke på en bogstavboks og springe gennem alfabetet. Jeg har 160 mennesker at holde styr på, og de fleste af dem står langt nede i alfabetet. Til gengæld er der også ledige bogstaver til kommende generationer']},
-  {v:'2.10',d:'2026-11-09',t:'2026-11-09T13:20:00Z',items:['Ny plakat til print! Hele familien på én væg over sofaen var vist for meget af det gode, så nu kan du også hente din egen anetavle, som kun følger forældrenes vej bagud: dine forældre, deres forældre og så videre, så langt træet rækker. Dine søskende står pænt ved siden af dig, din ægtefælle og dine børn nedenunder. Alle andre grene er væk — så nu er der ingen undskyldning for at hænge den op. Selv tak']},
-  {v:'2.9.2',d:'2026-11-02',t:'2026-11-02T14:05:00Z',items:['Når du logger på, vises et nyt logo for appen, mens træet bliver pakket ud bagved. Det sker kun, når du logger på med password — ikke hver gang du åbner appen. Både du og vores forfædre har ventet længe nok']},
-  {v:'2.9.1',d:'2026-11-02',t:'2026-11-02T13:39:03Z',items:['Små justeringer i brugerfladen. Jeg har ryddet lidt op, både foran og bagved, og fjernet unødig støj for at give mere plads til familien']},
-  {v:'2.9',d:'2026-10-27',t:'2026-10-27T09:25:00Z',items:['Øverst på hvert kort står nu det ord, man faktisk bruger: oldemor, tipoldefar, barnebarn. Det præcise slægtsled står under navnet, hvor det ikke råber ad nogen. Begge dele er rigtige, men kun det ene bliver sagt ved kaffebordet']},
-  {v:'2.8',d:'2026-10-27',t:'2026-10-27T06:15:00Z',items:['Jeg håndterer billederne klogere nu. De er der, når du åbner mig, i stedet for at nogle gange komme dryssende bagefter']},
-  {v:'2.7.1',d:'2026-10-25',t:'2026-10-25T18:30:00Z',items:['Du kan nu stryge mellem fanerne under hver person og i indstillingernes sektioner. Siden følger fingeren. Når du har strøget langt nok, lyser næste overskrift op. Slip, og så er du, hvor du skal være. Kirkebøgerne har aldrig været så samarbejdsvillige','De første par gange giver jeg siden et lille puf, så du kan se, at den kan flytte sig. Bedstefar fik også et puf engang. Han flyttede sig ikke']},
-  {v:'2.7',d:'2026-10-25',t:'2026-10-25T05:09:36Z',items:['Alle uden billede har fået en tegnet stand-in. Ingen af dem ligner nogen, og det er meningen. Jeg sørger for, at ægtefæller og søskende ikke deler ansigt','Børn og unge vises kun som tegning. Om man vil have sit eget billede i træet, bestemmer man helt selv']},
-  {v:'2.6',d:'2026-10-24',t:'2026-10-24T12:10:16Z',items:['Ny, længere adgangskode skal sikre privatlivets fred og ro. Og alt indhold er nu krypteret på basis af den nye adgangskode. Vi og vores forfædre fortjener diskretion','Desuden er det kun min egen kode, der får lov til at køre, og ingen data forlader siden','Skrifttypen brugt i appen hentes heller ikke længere hos (evil) Google. Dine besøg i træet er nemlig kun en sag mellem dig og forfædrene. Æret være deres minde']},
-  {v:'2.5',d:'2026-10-24',t:'2026-10-24T07:37:00Z',items:['På computere afsløres nu mere af hvert foto, når du holder musen over et kort. Det er subtilt og henrivende, ligesom oldemor']},
-  {v:'2.4.3',d:'2026-10-24',t:'2026-10-24T05:24:13Z',items:['På computeren åbnede plakaten en delemenu, som om du ville maile 2,77 meter familie til nogen. Jeg tog fejl. Nu bliver den bare hentet ned i overførsler','På telefonen kommer delemenuen stadig, for det er den vej, filer kommer hjem der']},
-  {v:'2.4.2',d:'2026-10-24',t:'2026-10-24T05:08:36Z',items:['Den store grå overskrift skiftede navn, hver gang du trykkede på nogen, og flere troede, siden handlede om den forkerte. Nu står der bare “familien”, og der bliver den stående. Ligesom familien selv','Vejen tilbage er en lille knap øverst med navnet på den, du kom fra. Jeg har aldrig været god til farvel, så nu siger jeg bare ‹']},
-  {v:'2.4.1',d:'2026-10-24',t:'2026-10-24T04:57:45Z',items:['Plakatens mål står ikke længere skrevet med kuglepen. Jeg måler nu selve plakaten, hver gang du kigger, for familien vokser, især bagud, når nogen graver i kirkebøgerne','Lige nu er den 2,77 meter. Sofaen er stadig i fare']},
-  {v:'2.4',d:'2026-10-23',items:['Tablets og store skærme bliver nu spurgt, om de vil vise hele slægten frem. Det gælder alle tablets, også dem med frugt på ryggen','Store skærme har fået en ▶-knap øverst, så pauseskærmen altid er ét tryk væk. Slægten har alligevel ingen andre planer']},
-  {v:'2.3.1',d:'2026-10-23',items:['Installationsvejledningen kan nu kende forskel på Chrome, Edge, Firefox, Samsung Internet og Safari. Den findes, fordi “det er så nemt med iPhone”. Det er det tydeligvis ikke. Jeg bliver så træt']},
-  {v:'2.3',d:'2026-10-23',items:['Appen spørger høfligt, om den må flytte ind på din hjemmeskærm. Siger du “ikke nu”, holder den sig væk i 30 dage. Så kommer den igen. Det gør familien altid']},
-  {v:'2.2',d:'2026-10-23',items:['Klokken fortæller nu også, når appen selv har lært noget nyt. Træets nyheder står i grønt, appens i terrakotta. De taler ikke sammen, og det er nok bedst sådan']},
-  {v:'2.1',d:'2026-10-23',items:['Familieplakaten kan hentes som PDF. Den er 2,8 meter bred, så ryd væggen i stuen og overvej sofaens fremtid','Til almindelige printere kommer der en udgave, som ikke kræver byggetilladelse']},
-  {v:'2.0.1',d:'2026-10-23',items:['Indstillinger er nu en ægte Zune-pivot. Stryg til siden mellem om, pauseskærm, forslag og resten. Zune blev selv lagt i graven i 2011. Vi holder mindet i hævd, ligesom med alle andre her']},
-  {v:'2.0',d:'2026-10-23',items:['Pauseskærm. Hele slægten svæver diagonalt hen over skærmen som en musikvideo fra 2009','Velegnet til familiefester, lange søndage og når nogen spørger: “Hvem var det nu, ham med hatten?” Han er som regel død før din fødsel. Hatten har klaret sig bedre']},
-  {v:'1.9.1',d:'2026-10-23',items:['Træets Vogter har fået stråhat og et græsstrå i munden. Han tager den ikke af indendørs. Vi er holdt op med at spørge']},
-  {v:'1.9',d:'2026-10-23',items:['Bo Hejselbæk er uofficielt udnævnt til Træets Vogter. Ros, rettelser og kage går direkte til ham. Klager går også til ham, og så videre ned i en skuffe','Versionslisten har fået en personlighed. Ingen har bedt om den']},
-  {v:'1.8',d:'2026-10-23',items:['Forslagsknappen virker. Send nye slægtninge, glemte fødselsdage og billeder af oldemor med hat til Bo via WhatsApp, Messenger eller sms','Brevduer understøttes ikke. Det har været forsøgt']},
-  {v:'1.7',d:'2026-10-23',items:['Huset er flyttet op i øverste venstre hjørne. Ét tryk, og du er hjemme','Du kan nu se træet fra hvem som helst, også fra den grandonkel, ingen kan huske navnet på. Det kan han heller ikke selv længere']},
-  {v:'1.6.1',d:'2026-10-23',items:['Knappen “behold” er afskediget efter kort tids tjeneste og afløst af et mere ydmygt “‹ tilbage”','Kortene på forsiden siger ikke længere årstallet to gange. Det gør onklen til familiefesten stadig, men han ligger uden for vores ansvarsområde']},
-  {v:'1.6',d:'2026-10-23',items:['En klokke. Den ringer ikke, men den har et lille tal, og det må man lære at leve med','Knapperne er blevet større, og teksten følger telefonens tekststørrelse, så læsebrillerne kan blive i etuiet. Hvor etuiet er, kan appen desværre ikke svare på']},
-  {v:'1.5',d:'2026-10-23',items:['“Sidst opdateret” viser nu, hvor frisk træet er, ligesom datoen på mælken. Træet bliver dog aldrig surt, det bliver bare ældre','Der er også en log ud-knap til dem, der låner oldefars telefon. Han opdager det ikke']},
-  {v:'1.4',d:'2026-10-23',items:['Lys, mørk eller automatisk. Mørk tilstand passer godt til en app, hvor de fleste medlemmer har sovet længe','Med forældrefokus klatrer du op ad stammen én generation ad gangen, indtil kirkebøgerne giver op']},
-  {v:'1.3',d:'2026-10-23',items:['Alt bevæger sig nu. Navne flyver, kort rejser sig, og generationsmarkøren glider stille af sted. Det er mere liv, end de fleste i træet har vist i et stykke tid']},
-  {v:'1.2',d:'2026-10-23',items:['Træet har fået hængelås, så kun familien kommer ind. Naboens kat har søgt igen og fået afslag igen','Appen kan nu bo på hjemmeskærmen og klarer sig uden internet, ligesom dens beboere har gjort i 200 år']},
-  {v:'1.0',d:'2026-10-23',items:['I begyndelsen var der kaos, en slægtsbog med kaffepletter og mindst tre stavemåder af det samme navn. Så kom appen. Kaffepletterne lever videre i ånden']}
+  {v:'2.0',d:'2026-10-25',t:'2026-10-25T10:02:00Z',items:['Pauseskærmen er kommet til. Læg telefonen på bordet, så glider slægten forbi helt af sig selv. Ingen af dem har travlt længere']},
+  {v:'1.4',d:'2026-10-23',t:'2026-10-23T19:10:00Z',items:['Nu kan du se, hvordan du er i familie med hvem som helst i træet. Led for led, hele vejen. Nogle af vejene er længere, end man skulle tro']},
+  {v:'1.3',d:'2026-10-21',t:'2026-10-21T14:25:00Z',items:['Jeg husker nu, hvem du er, så du slipper for at vælge dig selv hver gang. Det er mere, end jeg kan sige om visse familiemedlemmer']},
+  {v:'1.2',d:'2026-10-19',t:'2026-10-19T09:40:00Z',items:['Alle har fået et ansigt. De er tegnede, for fotografierne ligger i skoæsker hos folk, der ikke svarer på beskeder']},
+  {v:'1.1',d:'2026-10-17',t:'2026-10-17T18:00:00Z',items:['Mørk og lys baggrund kan nu vælges under indstillinger. Jeg foretrækker den mørke. Det gør de fleste herinde']},
+  {v:'1.0',d:'2026-10-15',t:'2026-10-15T12:00:00Z',items:['Første udgave. Slægten bor nu i lommen i stedet for i en mappe på loftet']},
 ];
 var NOTIFY=store('slaegt.notify')!=='0', CHANGES=[];
 var DIR='fwd', FLY=null, RAILKEY=null, PFOCUS=store('slaegt.pfocus')==='1';
@@ -1547,7 +1517,7 @@ function preparePdf(){
   fetch('plakat.enc.json',{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(o){
     if(KEYSALT!==o.salt) throw 0;
     return crypto.subtle.decrypt({name:'AES-GCM',iv:ub64(o.iv)},KEY,ub64(o.ct)).then(function(buf){
-      PDFFILE=new File([buf],'Familieplakat-Hejselbaek.pdf',{type:'application/pdf'}); PDFVER=VER;
+      PDFFILE=new File([buf],'Familieplakat-Dahl.pdf',{type:'application/pdf'}); PDFVER=VER;
       var dm=(o.mm||'').match(/(\d+)\D+(\d+)/); if(dm) $('#pdfDims').textContent=(Math.round(dm[1]/10)/100).toString().replace('.',',')+' meter bred og '+Math.round(dm[2]/10)+' cm høj';
       pdfUi('hent familieplakaten',false,'PDF, '+(Math.round(o.size/100000)/10).toString().replace('.',',')+' MB'+(o.mm?' · '+o.mm:'')+'.');
     });
@@ -3109,7 +3079,7 @@ function build(center){
   return {w:w,h:h,known:known,depth:depth};
 }
 /* ---- siden omkring tavlen: overskrift, mærke, signatur, kilder ---- */
-var KILDER='Kilder og noter for hver person står i appen: slaegten.hejselbaek.com';
+var KILDER='Kilder og noter for hver person står i appen: bohejselbaek.github.io/Slaegten-demo';
 
 function scaffold(){
   var r=aEl('div','ana');
